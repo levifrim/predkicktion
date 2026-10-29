@@ -1,0 +1,5 @@
+name: predkicktion
+channels:
+  - defaults
+dependencies:
+  - python
