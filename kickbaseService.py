@@ -61,3 +61,26 @@ class KickbaseService:
             headers={"Authorization": f"Bearer {self.token}"},
         )
         return response.json()
+
+    def get_event_types(self):
+        response = requests.get(
+            f"{self.url}/v4/live/eventtypes",
+            headers={"Authorization": f"Bearer {self.token}"},
+        )
+        return response.json()
+
+    def get_match_events(self, player_id: str, match_id: str, competition_id: str):
+        # matchId selects the exact game; dayNumber would return the current club's game instead
+        response = requests.get(
+            f"{self.url}/v4/competitions/{competition_id}/playercenter/{player_id}?matchId={match_id}",
+            headers={"Authorization": f"Bearer {self.token}"},
+        )
+        response.raise_for_status()
+        return response.json()
+
+    def get_performances(self, player_id: str, competition_id: str):
+        response = requests.get(
+            f"{self.url}/v4/competitions/{competition_id}/players/{player_id}/performance",
+            headers={"Authorization": f"Bearer {self.token}"},
+        )
+        return response.json()
